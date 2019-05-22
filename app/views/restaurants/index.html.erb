@@ -1,0 +1,18 @@
+<h1>Welcome to Yelp</h1>
+<ul>
+  <% @restaurants.each do |restaurant| %>
+  <li>
+    <%= restaurant[:name] %>
+    (
+    Address:
+    <%= restaurant[:address] %>
+    Phone number:
+    <%= restaurant[:phone_number] %>
+    )
+    Category:
+    <%= restaurant[:category] %>
+    <%= link_to 'see restaurant', restaurant_path(restaurant) %>
+  </li>
+  <% end %>
+  <%= link_to 'add restaurant', new_restaurant_path %>
+</ul>
