@@ -1,22 +1,53 @@
-<h2>
-  <%= @restaurant.name %>
-</h2>
-<p>
-  <%= @restaurant.address %>
-</p>
-<p>
-  <%= @restaurant.phone_number %>
-</p>
-<p>
-  <%= @restaurant.category %>
-  <% @restaurant.reviews.each do | review | %>
-  <li>
-    Review description:
-    <%= review.content %>
-    Rating:
-    <%= review.rating %> out of 5
-  </li>
+<h2><%= @restaurant.name %></h2>
+<div class="link-restaurant_index"><%= link_to '<< Back to all restaurants', restaurants_path %></div>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th scope="row">Address</th>
+        <td><%= @restaurant.address %></td>
+      </tr>
+      <tr>
+        <th scope="row">Phone Number</th>
+        <td><%= @restaurant.phone_number %></td>
+      </tr>
+      <tr>
+        <th scope="row">Category</th>
+        <td><%= @restaurant.category %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="list-group">
+    <p><strong>Latest Reviews:</strong></p>
+    <% if @restaurant.reviews.count == 0 %>
+      <p>No reviews have been submiited</p>
+    <% else %>
+      <% @restaurant.reviews.each do | review | %>
+        <li class="list-group-item">
+          <small>
+            <% count = 0 %>
+            <% 5.times do %>
+              <% if review.rating > count %>
+                <i class="fas fa-star"></i>
+              <% else %>
+                <i class="far fa-star"></i>
+              <% end %>
+              <% count += 1 %>
+            <% end %>
+          </small>
+          <p><%= review.content %></p>
+        </li>
+      <% end %>
+    <% end %>
+  </div>
+  <br>
+  <p><strong>Add a review</strong></p>
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :content, label: 'Your comments' %>
+    <%= f.input :rating , collection: (0..5) %>
+    <%= f.submit "Submit new review", class: "btn btn-primary" %>
   <% end %>
-</p>
-<%= link_to 'Add a review', new_restaurant_review_path(@restaurant) %>
-<%= link_to 'Back to all restaurants', restaurants_path %>
+</div>
+
+
+

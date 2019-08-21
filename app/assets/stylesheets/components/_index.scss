@@ -2,3 +2,16 @@
 @import "alert";
 @import "avatar";
 @import "navbar";
+
+.list-group-item a {
+  text-decoration: none;
+}
+.container {
+  margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 96px;
+}
+.link-restaurant_index{
+  margin-bottom: 24px;
+}
